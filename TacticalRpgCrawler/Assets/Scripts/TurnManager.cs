@@ -17,9 +17,15 @@ public class TurnManager : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);
-
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(transform.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     
     public bool gameFinished = false;
