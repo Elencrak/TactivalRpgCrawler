@@ -7,6 +7,8 @@ public class Tile : MonoBehaviour {
     public bool blocked;
     public Vector2 position2D;
     public EntityController entity = null;
+
+    public Texture floor;
         
 	// Use this for initialization
 	void Start () {
@@ -20,6 +22,8 @@ public class Tile : MonoBehaviour {
 
     public void DestroyWall()
     {
-        
+        GetComponent<MeshRenderer>().material.mainTexture = floor;
+
+        blocked = false;
     }
 }
