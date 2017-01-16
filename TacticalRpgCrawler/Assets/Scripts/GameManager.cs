@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     public GameObject wall;
     public GameObject floor;
     public GameObject AI;
+    public GameObject playerPrefab;
     public int nbIA;
 
     public int width;
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour {
         {
             instance = this;
             DontDestroyOnLoad(instance);
+            Bite();
         }
         else
         {
@@ -37,8 +39,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 	// Use this for initialization
-	void Start () {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+	void Bite () {
         map = new GameObject[width, height];
 
 		for (int i = 0; i < width; i ++ )
@@ -52,6 +53,9 @@ public class GameManager : MonoBehaviour {
                     temp.transform.parent = parent;
                     temp.GetComponent<Tile>().position2D = new Vector2(i, j);
                     temp.GetComponent<Tile>().blocked = false;
+
+                    GameObject playerprf = Instantiate(playerPrefab, new Vector3(i, 1, j), Quaternion.identity) as GameObject;
+                    player = playerprf.GetComponent<PlayerController>();
                 }
                 else
                 {
@@ -78,6 +82,7 @@ public class GameManager : MonoBehaviour {
                                 GameObject tempAI;
                                 tempAI = Instantiate(AI, new Vector3(i, 0.5f, j), Quaternion.identity) as GameObject;
                                 indexIA++;
+                                tempAI.GetComponent<EnemyController>().position = new Vector2(i, j);
                             }
                         }
                     }
