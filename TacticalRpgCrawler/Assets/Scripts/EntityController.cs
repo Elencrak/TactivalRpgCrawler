@@ -5,6 +5,7 @@ using UnityEngine;
 public class EntityController : MonoBehaviour {
 
     public int id;
+    public Vector2 position;
 
 	// Use this for initialization
 	void Start () {
