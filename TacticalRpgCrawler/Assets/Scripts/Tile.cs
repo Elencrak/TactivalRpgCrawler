@@ -7,7 +7,7 @@ public class Tile : MonoBehaviour {
     public bool blocked;
     public Vector2 position2D;
     public EntityController entity = null;
-
+        
 	// Use this for initialization
 	void Start () {
 		

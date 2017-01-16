@@ -6,13 +6,17 @@ public class GameManager : MonoBehaviour {
 
     public GameObject[,] map;
     public Transform parent;
+    public EntityController player;
 
     public GameObject wall;
     public GameObject floor;
     public GameObject AI;
+    public int nbIA;
 
     public int width;
     public int height;
+
+    private int indexIA;
 
     private static GameManager instance = null;
     public static GameManager Instance
@@ -21,7 +25,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void Awake()
-    {
+    {  
         if(instance == null)
         {
             instance = this;
@@ -34,6 +38,7 @@ public class GameManager : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         map = new GameObject[width, height];
 
 		for (int i = 0; i < width; i ++ )
@@ -65,10 +70,15 @@ public class GameManager : MonoBehaviour {
                         temp.GetComponent<Tile>().blocked = false;
 
                         int AIorNot = Random.Range(0,2);
-                        if(AIorNot == 1)
+                        int popOrNotPop = Random.Range(0, 4);
+                        if (popOrNotPop == 1)
                         {
-                            GameObject tempAI;
-                            tempAI = Instantiate(AI, new Vector3(i, 0.5f, j), Quaternion.identity) as GameObject;
+                            if(nbIA > indexIA)
+                            {   
+                                GameObject tempAI;
+                                tempAI = Instantiate(AI, new Vector3(i, 0.5f, j), Quaternion.identity) as GameObject;
+                                indexIA++;
+                            }
                         }
                     }
                 }
