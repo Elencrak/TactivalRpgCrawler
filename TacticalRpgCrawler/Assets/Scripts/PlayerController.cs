@@ -51,6 +51,10 @@ public class PlayerController : EntityController {
         {
             position = nextTile;
 
+            GameManager.Instance.map[(int)position.x, (int)position.y].GetComponent<Tile>().entity = null;
+            position = new Vector2((int)nextTile.x, (int)nextTile.y);
+            tile.entity = this;
+
             transform.position = new Vector3(tile.transform.position.x, 1, tile.transform.position.z);
         }
 

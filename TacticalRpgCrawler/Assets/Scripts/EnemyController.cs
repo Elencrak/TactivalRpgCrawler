@@ -27,8 +27,6 @@ public class EnemyController : EntityController {
         possibleTiles.Add(GameManager.Instance.map[(int)position.x, Mathf.Clamp((int)position.y + 1, 0, GameManager.Instance.height - 1)].GetComponent<Tile>());
         possibleTiles.Add(GameManager.Instance.map[(int)position.x, Mathf.Clamp((int)position.y - 1, 0, GameManager.Instance.height - 1)].GetComponent<Tile>());
 
-        Debug.Log("I play " + id);
-
         EntityController playerFind = null;
         foreach(Tile p in possibleTiles)
         {
@@ -53,6 +51,10 @@ public class EnemyController : EntityController {
 
             if(tiles.Count >= 0)
             {
+                GameManager.Instance.map[(int)position.x, (int)position.y].GetComponent<Tile>().entity = null;
+                position = new Vector2(tiles[index].position2D.x, tiles[index].position2D.y);
+                tiles[index].entity = this;
+
                 transform.position = new Vector3(tiles[index].position2D.x, 0, tiles[index].position2D.y);
             } 
         }
