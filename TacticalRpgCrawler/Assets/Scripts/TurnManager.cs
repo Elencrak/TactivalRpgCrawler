@@ -17,14 +17,22 @@ public class TurnManager : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);
-
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(transform.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     
     public bool gameFinished = false;
 
     public List<EnemyController> entities;
+
+    PlayerController player;
     
     int nbColorAffected = 0;
     
@@ -42,6 +50,8 @@ public class TurnManager : MonoBehaviour
             entities.Add(eC);
             id++;
         }
+
+        player = FindObjectOfType<PlayerController>();
     }
     
     public void Add(EnemyController eC)
@@ -61,5 +71,6 @@ public class TurnManager : MonoBehaviour
         {
             entity.Play();
         }
+        player.Play();
     }
 }

@@ -21,4 +21,9 @@ public class EntityController : MonoBehaviour {
     {
 
     }
+
+    public virtual void TakeDamage()
+    {
+
+    }
 }
