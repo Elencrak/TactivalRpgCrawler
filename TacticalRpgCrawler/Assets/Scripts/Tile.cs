@@ -20,6 +20,6 @@ public class Tile : MonoBehaviour {
 
     public void DestroyWall()
     {
-
+        
     }
 }
