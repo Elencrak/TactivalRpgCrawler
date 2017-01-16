@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : EntityController {
 
+    bool canMove;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -13,6 +15,8 @@ public class PlayerController : EntityController {
 	// Update is called once per frame
 	void Update ()
     {
+        if (!canMove) return;
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Move(new Vector2(1, 0));
@@ -37,9 +41,17 @@ public class PlayerController : EntityController {
 
     void Move(Vector2 movement)
     {
-        position += movement;
+        Tile tile = GameManager.Instance.map[(int)(position.x + movement.x), (int)(position.y + movement.y)].GetComponent<Tile>();
 
-        Play();
+        if (!tile.blocked)
+        {
+            position = position + movement;
+
+            transform.position = new Vector3(tile.transform.position.x, tile.transform.position.y,transform.position.z);
+        }
+
+        canMove = false;
+        TurnManager.Instance.EndPlayerTurn();
     }
 
     void Attack()
@@ -48,9 +60,21 @@ public class PlayerController : EntityController {
         {
             for (int j = -1; j <= 1; j++)
             {
-                //attack
+                Tile tile = GameManager.Instance.map[(int)position.x + i, (int)position.y + j].GetComponent<Tile>();
+
+                if (tile.entity != null)
+                {
+                    tile.entity.TakeDamage();
+                }
+                else if (tile.blocked)
+                {
+                    tile.DestroyWall();
+                }
             }
         }
+
+        canMove = false;
+        TurnManager.Instance.EndPlayerTurn();
     }
 
     public override void TakeDamage()
@@ -60,6 +84,6 @@ public class PlayerController : EntityController {
 
     public override void Play()
     {
-        TurnManager.Instance.EndPlayerTurn();
+        canMove = true;
     }
 }

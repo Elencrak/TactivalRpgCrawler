@@ -31,6 +31,8 @@ public class TurnManager : MonoBehaviour
     public bool gameFinished = false;
 
     public List<EnemyController> entities;
+
+    PlayerController player;
     
     int nbColorAffected = 0;
     
@@ -48,6 +50,8 @@ public class TurnManager : MonoBehaviour
             entities.Add(eC);
             id++;
         }
+
+        player = FindObjectOfType<PlayerController>();
     }
     
     public void Add(EnemyController eC)
@@ -67,5 +71,6 @@ public class TurnManager : MonoBehaviour
         {
             entity.Play();
         }
+        player.Play();
     }
 }

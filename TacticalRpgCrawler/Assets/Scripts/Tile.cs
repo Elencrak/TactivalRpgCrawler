@@ -17,4 +17,9 @@ public class Tile : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void DestroyWall()
+    {
+
+    }
 }
