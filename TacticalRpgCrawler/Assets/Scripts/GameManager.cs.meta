@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: 64302a37bb3d6ce4bb7e226d9bd7c882
-timeCreated: 1484559793
+timeCreated: 1484561465
 licenseType: Pro
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - tile: {instanceID: 0}
+  - parent: {instanceID: 0}
+  - wall: {fileID: 21300000, guid: 72775d9a8dee7e149bf7aa96b1973882, type: 3}
+  - floor: {fileID: 21300000, guid: 531ad03a61c1c684581f2ccaa6fabe3d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
